@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lotteria;
 
 import java.util.Random;
@@ -25,13 +20,13 @@ public class Giocatore extends Thread{
     //Metodo per eseguire il thread
     public synchronized void run() {
         
-        while (estrazione.getEstrazioneCompletata() == false) {
+        /*while (estrazione.getEstrazioneCompletata() == false) {
             try {
                 wait();  // Aspetta che l'estrazione sia completata
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
-        }
+        }*/
 
         // scelta del numero da giocare
         int numeroScelto = Random.nextInt(5);
