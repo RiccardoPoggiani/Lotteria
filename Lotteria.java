@@ -1,5 +1,9 @@
 package lotteria;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -7,9 +11,15 @@ public class Lotteria {
     public static void main(String[] args) {
         int n = 3;
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Inserisci il numero di righe e colonne della matrice di numeri da estrarre: ");
+        int N = scanner.nextInt();
+        BufferedReader br = new BufferedReader(){
+            new InputStreamReader(System.in);
+        };
+        N = Integer.parseInt(br.readLine());
         
         
-        Estrazione e = new Estrazione(n);
+        Estrazione e = new Estrazione(n, 4);
         
         System.out.println("Inizio lotteria...");
         e.start();
@@ -47,9 +57,10 @@ public class Lotteria {
         }
         
           //istanza ed avvio del thread Estrazione
-           System.out.println("3° posto: " + e.vincitori[2]);
-           System.out.println("2° posto: " + e.vincitori[1]);
-           System.out.println("1° posto: " + e.vincitori[0]);
+        System.out.println("3° posto: " + e.getVincitore(3));
+        System.out.println("3° posto: " + e.getVincitore(2));
+        System.out.println("2° posto: " + e.getVincitore(1));
+        System.out.println("1° posto: " + e.getVincitore(0));
            
          System.out.println("Fine della lotteria...");
     }

@@ -8,8 +8,7 @@ public class Estrazione extends Thread {
     //Attributi
     private int numeroEstratto;
     private int[][] numeriEstratti;
-    private int N
-    private int conta;
+    private int N;
     private Giocatore[] vincitori;
     private Random Random;
     
@@ -17,7 +16,6 @@ public class Estrazione extends Thread {
     public Estrazione(int N, int nGiocatori) {
         this.N = N;
         numeriEstratti = new int[N][N];
-        conta = 0;
         vincitori = new Giocatore[nGiocatori];
         Random = new Random();
     }
@@ -27,7 +25,7 @@ public class Estrazione extends Thread {
         System.out.print("I numeri estratti fino ad ora sono: ");
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                if (numeriEstratti[i] != 0)
+                if (numeriEstratti[i][j] != 0)
                     System.out.print(numeriEstratti[i][j] + ", ");
             }
         }
@@ -43,6 +41,15 @@ public class Estrazione extends Thread {
             }
        }
        System.out.println();
+    }
+    
+    public String getVincitore(int num){
+        for (int i = 0; i < N; i++) {
+            if (num == i){
+                return vincitori[i].getNomeGiocatore();
+            }
+        }
+        return "";
     }
 
     // Metodo per verificare il numero scelto dal giocatore e determinare i vincitori
@@ -80,17 +87,24 @@ public class Estrazione extends Thread {
         
         boolean numeroValido = false;
         while (numeroValido == false) {
-            numeroEstratto = random.nextInt(9); // Genera numero da 0 a 9
+            numeroEstratto = Random.nextInt(9); // Genera numero da 0 a 9
             if (numeroGiaEstratto(numeroEstratto) == false) {
                 numeroValido = true;  // Numero non estratto in precedenza
             }
         }
         
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (numeriEstratti[i][j] == 0) {
+                    numeriEstratti[i][j] = numeroEstratto;
+                    break;
+                }
+            }
+        }
+        
+        //inserire in numeri estratti
+        
         System.out.println("Il numero estratto è " + numeroEstratto);
-        numeriEstratti[conta] = numeroEstratto;
-        conta++;
         System.out.println("Fine dell'estrazione...");
     }
 }
-
-

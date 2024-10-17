@@ -7,26 +7,20 @@ import java.util.Random;
 public class Giocatore extends Thread{
     // attributi
     private int idGiocatore;
+    private String nomeGiocatore;
     private Estrazione estrazione;
     private Random Random;
       
     //Metodo costruttore
-    public Giocatore(int idGiocatore,Estrazione estrazione) {
+    public Giocatore(int idGiocatore,String nomeGiocatore, Estrazione estrazione) {
         this.idGiocatore = idGiocatore;
+        this.nomeGiocatore = nomeGiocatore;
         this.estrazione = estrazione;
         Random = new Random();
     }
 
     //Metodo per eseguire il thread
     public synchronized void run() {
-        
-        /*while (estrazione.getEstrazioneCompletata() == false) {
-            try {
-                wait();  // Aspetta che l'estrazione sia completata
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }*/
 
         // scelta del numero da giocare
         int numeroScelto = Random.nextInt(5);
@@ -38,6 +32,9 @@ public class Giocatore extends Thread{
 
     public int getIdGiocatore() {
         return idGiocatore;
+    }
+    public String getNomeGiocatore() {
+        return nomeGiocatore;
     }
 
 }
