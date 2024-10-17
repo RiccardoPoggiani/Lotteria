@@ -12,8 +12,6 @@ public class Estrazione extends Thread {
     private int conta;
     private Giocatore[] vincitori;
     private Random Random;
-    /*private boolean estrazioneCompletata;
-    private int cicliVerifica;*/
     
     //Metodo costruttore
     public Estrazione(int N, int nGiocatori) {
@@ -22,8 +20,6 @@ public class Estrazione extends Thread {
         conta = 0;
         vincitori = new Giocatore[nGiocatori];
         Random = new Random();
-        /*estrazioneCompletata = false;
-        cicliVerifica = 0;*/
     }
 
     //Metodo per visualizzare la matrice dei numeri estratti
@@ -62,39 +58,39 @@ public class Estrazione extends Thread {
         } else {
             System.out.println("Giocatore " + giocatore.getIdGiocatore() + " non ha scelto il numero " + numeroEstratto + ", ha perso l'estrazione!");
         }
+    }
 
-        /*cicliVerifica++;
-        if (cicliVerifica == 3){
-            estrazioneCompletata = false;
-            notifyAll();
-            stampaNumeriEstratti(); // Sposta qui
-            stampaVincitoriEstrazione(); // Sposta qui
-        }*/
+    // Metodo per verificare se il numero è già stato estratto
+    private boolean numeroGiaEstratto(int numero) {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (numeriEstratti[i][j] == numero) {
+                    return true;  // Il numero è già stato estratto
+                }
+            }
+        }
+        return false;  // Numero non estratto
     }
     
 
     //Metodo per eseguire il thread
     public synchronized void run() {
-        //cicliVerifica = 0;
         
         System.out.println("Inizio dell'estrazione...");
-        int numeroEstratto = Random.nextInt(9);
+        
+        boolean numeroValido = false;
+        while (numeroValido == false) {
+            numeroEstratto = random.nextInt(9); // Genera numero da 0 a 9
+            if (numeroGiaEstratto(numeroEstratto) == false) {
+                numeroValido = true;  // Numero non estratto in precedenza
+            }
+        }
+        
         System.out.println("Il numero estratto è " + numeroEstratto);
         numeriEstratti[conta] = numeroEstratto;
         conta++;
         System.out.println("Fine dell'estrazione...");
-        
-        /*estrazioneCompletata = true;
-        notifyAll();*/
     }
-
-    /*public synchronized boolean getEstrazioneCompletata() {
-        return estrazioneCompletata;
-    }
-
-    public synchronized void setEstrazioneCompletata(boolean estrazioneCompletata) {
-        this.estrazioneCompletata = estrazioneCompletata;
-    }*/
 }
 
 
